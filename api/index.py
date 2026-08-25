@@ -22,14 +22,15 @@ try:
 
     app = create_app('production')
 except Exception:  # noqa: BLE001 — surface startup errors in the browser
+    _STARTUP_TRACEBACK = traceback.format_exc()
     from flask import Flask
 
     app = Flask(__name__)
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
-    def startup_error(path: str = ''):
-        tb = traceback.format_exc()
+       def startup_error(path: str = ''):
+        tb = _STARTUP_TRACEBACK
         html = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>NETRIX startup error</title>
 <style>
