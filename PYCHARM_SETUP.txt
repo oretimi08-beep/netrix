@@ -1,0 +1,79 @@
+NETRIX — Run perfectly in PyCharm
+=================================
+
+The error "No module named 'flask'" means PyCharm's selected
+interpreter does not have the project packages installed yet.
+
+----------------------------------------
+METHOD A (recommended, 2 minutes)
+----------------------------------------
+
+1. Open the "netrix" folder in PyCharm as the project root
+   (File → Open → select the netrix folder).
+
+2. Configure the interpreter:
+   File → Settings → Project → Python Interpreter
+   (macOS: PyCharm → Settings → Project → Python Interpreter)
+
+   - Click the gear / interpreter list → Add Interpreter → Add Local
+   - Choose "Existing" if you already have:
+       netrix\.venv\Scripts\python.exe
+     OR create a new Virtualenv Environment located in:
+       netrix\.venv
+   - Apply / OK
+
+3. Install packages into THAT interpreter:
+   - Open setup_pycharm.py
+   - Right-click → Run 'setup_pycharm'
+   - Wait until you see:  OK: Flask ... is installed.
+
+4. Run the app:
+   - Open run.py
+   - Right-click → Run 'run.py'
+   - Open browser: http://127.0.0.1:5000
+   - Register at /register, then log in
+
+----------------------------------------
+METHOD B (Terminal inside PyCharm)
+----------------------------------------
+
+View → Tool Windows → Terminal
+
+Then type:
+
+  python -m pip install -r requirements.txt
+  python run.py
+
+(Use the same interpreter PyCharm shows in the bottom-right status bar.)
+
+----------------------------------------
+METHOD C (Windows Command Prompt)
+----------------------------------------
+
+  cd C:\Users\gabri\Desktop\netrix
+  .venv\Scripts\python.exe -m pip install -r requirements.txt
+  .venv\Scripts\python.exe run.py
+
+Or double-click: install_deps.bat   then   start.bat
+
+----------------------------------------
+Common PyCharm mistakes
+----------------------------------------
+
+- Running with system Python instead of .venv
+  → Bottom-right corner of PyCharm must show ".venv" or your project venv
+
+- Installing packages in a different terminal/venv than PyCharm uses
+  → Always use setup_pycharm.py or the Terminal inside PyCharm
+
+- Opening a parent folder (Desktop) instead of the netrix folder
+  → Project root must contain run.py and the app\ folder
+
+----------------------------------------
+Working directory
+----------------------------------------
+
+Run configuration for run.py should use:
+  Working directory = the netrix folder (where run.py lives)
+
+Edit Configurations → run.py → Working directory → select netrix path

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-edit me-2"></i>Edit: {{ project.name }}</h2>
+            <div>
+                <a href="{{ url_for('view_project', project_id=project.id) }}" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-eye me-1"></i>View
+                </a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Department Form -->
+            <div class="col-lg-4 mb-4">
+                <div class="card shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-plus-circle me-2"></i>Add Department</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="mb-3">
+                                <label for="dept_name" class="form-label">Department Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="dept_name" name="dept_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hosts" class="form-label">Number of Hosts <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="hosts" name="hosts" min="1" max="10000" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="vlan_id" class="form-label">VLAN ID <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="vlan_id" name="vlan_id" min="1" max="4094" required>
+                                <small class="text-muted">Valid range: 1-4094</small>
+                            </div>
+                            <button type="submit" name="add_department" class="btn btn-success w-100">
+                                <i class="fas fa-plus-circle me-2"></i>Add Department
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Process Button -->
+                <div class="card mt-3 shadow">
+                    <div class="card-body">
+                        <form method="POST">
+                            <button type="submit" name="process" class="btn btn-primary w-100" 
+                                    {% if not project.departments %}disabled{% endif %}>
+                                <i class="fas fa-play me-2"></i>Process Network Design
+                            </button>
+                        </form>
+                        {% if not project.departments %}
+                            <small class="text-muted">Add at least one department first</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Departments List -->
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="mb-0"><i class="fas fa-list me-2"></i>Departments ({{ project.departments|length }})</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if project.departments %}
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Department</th>
+                                            <th>Hosts</th>
+                                            <th>VLAN ID</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for dept in project.departments %}
+                                            <tr>
+                                                <td>{{ loop.index }}</td>
+                                                <td>{{ dept.name }}</td>
+                                                <td>{{ dept.hosts }}</td>
+                                                <td><span class="badge bg-primary">{{ dept.vlan_id }}</span></td>
+                                                <td>
+                                                    <form method="POST" onsubmit="return confirm('Remove {{ dept.name }}?')">
+                                                        <input type="hidden" name="dept_id" value="{{ dept.id }}">
+                                                        <button type="submit" name="remove_department" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="text-center py-4">
+                                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">No departments added yet. Add your first department!</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Project Info -->
+                <div class="card mt-3 shadow">
+                    <div class="card-body">
+                        <h6><i class="fas fa-info-circle me-2"></i>Project Information</h6>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <small class="text-muted">Company:</small>
+                                <p class="mb-0">{{ project.company_name or 'N/A' }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted">Base Network:</small>
+                                <p class="mb-0">{{ project.base_network or 'N/A' }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted">Routing Protocol:</small>
+                                <p class="mb-0">{{ project.routing_protocol or 'N/A' }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <small class="text-muted">Created:</small>
+                                <p class="mb-0">{{ project.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

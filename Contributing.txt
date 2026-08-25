@@ -1,0 +1,21 @@
+Contributing
+Fork the repository
+
+Create a feature branch
+
+Commit your changes
+
+Push to the branch
+
+Create a Pull Request
+
+License
+This project is licensed under the MIT License.
+
+Support
+For support, email support@netrix.com or create an issue in the repository.
+
+Acknowledgments
+Cisco Systems for networking standards
+
+Open source community for various libraries and tools

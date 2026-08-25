@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="text-center py-5">
+            <h1 class="display-3 fw-bold text-primary">
+                <i class="fas fa-network-wired"></i> NETRIX
+            </h1>
+            <p class="lead">Automated Enterprise Network Planning Framework</p>
+            <hr class="my-4">
+            <p class="text-muted">
+                Design, configure, and validate enterprise networks with ease.
+                Enter your network requirements and let NETRIX handle the rest.
+            </p>
+            <div class="mt-4">
+                <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg me-2">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login
+                </a>
+                <a href="{{ url_for('register') }}" class="btn btn-success btn-lg">
+                    <i class="fas fa-user-plus me-2"></i>Register
+                </a>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-sitemap fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">VLSM Subnetting</h5>
+                        <p class="card-text">Automatic subnet allocation based on department host requirements.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-server fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Configuration Generation</h5>
+                        <p class="card-text">Generate Cisco IOS router and switch configurations ready for deployment.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body text-center">
+                        <i class="fas fa-check-circle fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Validation & Reports</h5>
+                        <p class="card-text">Validate network design and generate comprehensive documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

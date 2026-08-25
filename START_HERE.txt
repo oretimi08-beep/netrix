@@ -1,0 +1,21 @@
+NETRIX — START HERE (Windows)
+=============================
+
+1) Install packages (once):
+     Double-click:  install_deps.bat
+   OR in PyCharm: right-click setup_pycharm.py → Run
+
+2) Start the server:
+     Double-click:  start.bat
+   OR:  python run.py
+   OR in PyCharm: right-click run.py → Run
+
+3) Open browser:  http://127.0.0.1:5000
+
+4) Accounts
+   - Public users: Register at /register, then Login at /login
+   - Admin access is not shown on the login page.
+     Configure the admin account privately via environment variables
+     in .env (see .env.example): BOOTSTRAP_ADMIN_EMAIL / BOOTSTRAP_ADMIN_PASSWORD
+
+5) Deploy online: see DEPLOYMENT.md

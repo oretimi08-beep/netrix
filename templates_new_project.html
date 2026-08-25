@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0"><i class="fas fa-plus-circle me-2"></i>New Project</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="project_name" class="form-label">Project Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="project_name" name="project_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="company_name" class="form-label">Company Name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="company_name" name="company_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="base_network" class="form-label">Base Network <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="base_network" name="base_network" 
+                               placeholder="e.g., 192.168.10.0/24" required>
+                        <small class="text-muted">Enter the base network in CIDR notation</small>
+                    </div>
+                    <div class="mb-3">
+                        <label for="routing_protocol" class="form-label">Routing Protocol <span class="text-danger">*</span></label>
+                        <select class="form-select" id="routing_protocol" name="routing_protocol" required>
+                            <option value="rip">RIP v2</option>
+                            <option value="ospf">OSPF</option>
+                            <option value="eigrp">EIGRP</option>
+                            <option value="static">Static</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Cancel
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save me-2"></i>Create Project
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

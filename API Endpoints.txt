@@ -1,0 +1,14 @@
+API Endpoints
+Endpoint	Method	Description
+/	GET	Home page
+/register	GET/POST	User registration
+/login	GET/POST	User login
+/logout	GET	User logout
+/dashboard	GET	User dashboard
+/project/new	GET/POST	Create new project
+/project/<id>	GET	View project
+/project/<id>/edit	GET/POST	Edit project
+/project/<id>/process	GET	Process network design
+/project/<id>/results	GET	View results
+/project/<id>/download/<type>	GET	Download files
+/api/validate	POST	Validate input data

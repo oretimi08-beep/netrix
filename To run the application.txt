@@ -1,0 +1,10 @@
+To run the application:
+
+1. Install Python 3.8+
+2. Create a directory called `EnterpriseNetworkFramework`
+3. Create all the files as shown above in their respective directories
+4. Install dependencies: `pip install -r requirements.txt`
+5. Run: `python app.py`
+6. Open: `http://localhost:5000`
+
+The application is now ready to use! You can register, create projects, add departments, and generate complete network designs with configurations, diagrams, and reports.

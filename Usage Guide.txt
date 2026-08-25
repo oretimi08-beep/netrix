@@ -1,0 +1,61 @@
+Usage Guide
+1. Register/Login
+Create a new account or login with existing credentials
+
+2. Create a Project
+Click "New Project" from the dashboard
+
+Enter project details:
+
+Project name
+
+Company name
+
+Base network (e.g., 192.168.10.0/24)
+
+Routing protocol (RIP, OSPF, EIGRP)
+
+3. Add Departments
+Add departments with their requirements:
+
+Department name
+
+Number of hosts
+
+VLAN ID (1-4094)
+
+4. Process Network Design
+Click "Process Network Design" to generate:
+
+VLSM subnet allocation
+
+IPv4 addressing plan
+
+VLAN assignments
+
+Router configuration
+
+Switch configuration
+
+Documentation
+
+Network diagrams
+
+UML diagrams
+
+Packet Tracer validation
+
+5. Download Results
+Access the results page to download:
+
+PDF Report
+
+Router Configuration
+
+Switch Configuration
+
+CSV Address Plan
+
+Network Diagram
+
+UML Diagram

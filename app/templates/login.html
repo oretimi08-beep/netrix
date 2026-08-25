@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NETRIX – Sign In</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-dark: #0a1628;
+            --primary-mid: #132337;
+            --primary-accent: #3b82f6;
+            --primary-glow: rgba(59, 130, 246, 0.35);
+            --success: #10b981;
+            --purple: #8b5cf6;
+        }
+        * { box-sizing: border-box; }
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 20%, rgba(59,130,246,0.25), transparent 50%),
+                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(139,92,246,0.2), transparent 50%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(16,185,129,0.08), transparent 60%);
+            pointer-events: none;
+        }
+        .grid-bg {
+            position: absolute; inset: 0; opacity: 0.04;
+            background-image:
+                linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px);
+            background-size: 48px 48px;
+            pointer-events: none;
+        }
+        .shell {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 960px;
+            margin: 24px;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+            backdrop-filter: blur(20px);
+        }
+        @media (max-width: 800px) {
+            .shell { grid-template-columns: 1fr; }
+            .hero { display: none; }
+        }
+        .hero {
+            padding: 48px 40px;
+            background: linear-gradient(160deg, rgba(59,130,246,0.15), rgba(139,92,246,0.1));
+            border-right: 1px solid rgba(255,255,255,0.06);
+            color: #e8eef8;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero .logo {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+        }
+        .hero .logo-icon {
+            width: 52px; height: 52px; border-radius: 14px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; color: #fff;
+            box-shadow: 0 8px 24px var(--primary-glow);
+        }
+        .hero h1 { font-size: 28px; font-weight: 800; margin: 0; letter-spacing: -0.5px; }
+        .hero h1 span { color: #93c5fd; }
+        .hero p.tag { color: #94a3b8; margin: 4px 0 0; font-size: 13px; }
+        .hero h2 {
+            font-size: 22px; font-weight: 700; margin: 0 0 12px;
+            line-height: 1.3; color: #f1f5f9;
+        }
+        .hero .desc { color: #94a3b8; font-size: 14px; line-height: 1.6; margin-bottom: 28px; }
+        .feature {
+            display: flex; gap: 12px; align-items: flex-start;
+            margin-bottom: 14px; font-size: 13px; color: #cbd5e1;
+        }
+        .feature i {
+            width: 28px; height: 28px; border-radius: 8px;
+            background: rgba(59,130,246,0.2); color: #60a5fa;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; font-size: 12px;
+        }
+        .panel {
+            padding: 48px 40px;
+            background: #fff;
+        }
+        .panel h3 {
+            font-size: 22px; font-weight: 700; color: #0f172a; margin: 0 0 6px;
+        }
+        .panel .sub { color: #64748b; font-size: 14px; margin-bottom: 28px; }
+        .form-label { font-weight: 600; font-size: 13px; color: #334155; }
+        .form-control {
+            border-radius: 12px; padding: 12px 16px; border: 1.5px solid #e2e8f0;
+            font-size: 14px; transition: all 0.2s;
+        }
+        .form-control:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.12);
+        }
+        .btn-login {
+            width: 100%; border: none; border-radius: 12px; padding: 13px;
+            font-weight: 600; font-size: 15px; color: #fff;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .btn-login:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(37,99,235,0.45);
+            color: #fff;
+        }
+        .btn-login:disabled { opacity: 0.7; transform: none; }
+        .alert { border-radius: 12px; font-size: 13px; border: none; }
+        .demo-box {
+            margin-top: 24px; padding: 16px;
+            background: #f8fafc; border-radius: 14px; border: 1px solid #e2e8f0;
+        }
+        .demo-box h6 {
+            font-size: 12px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.5px; color: #64748b; margin: 0 0 12px;
+        }
+        .demo-row {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 0; border-bottom: 1px solid #f1f5f9;
+            font-size: 12px; color: #475569;
+        }
+        .demo-row:last-child { border-bottom: none; }
+        .role-pill {
+            font-size: 10px; font-weight: 700; padding: 3px 8px;
+            border-radius: 20px; color: #fff; min-width: 58px; text-align: center;
+        }
+        .role-admin { background: #8b5cf6; }
+        .role-user { background: #3b82f6; }
+        .role-viewer { background: #64748b; }
+        .demo-row code {
+            background: #e2e8f0; padding: 2px 7px; border-radius: 6px;
+            font-size: 11px; color: #1e293b;
+        }
+        .demo-row button.fill {
+            margin-left: auto; border: none; background: #e0e7ff; color: #3730a3;
+            font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 8px;
+            cursor: pointer;
+        }
+        .demo-row button.fill:hover { background: #c7d2fe; }
+        .footer-link { text-align: center; margin-top: 20px; font-size: 13px; color: #64748b; }
+        .footer-link a { color: #2563eb; font-weight: 600; text-decoration: none; }
+        .footer-link a:hover { text-decoration: underline; }
+        .server-hint {
+            margin-top: 16px; padding: 12px 14px; border-radius: 12px;
+            background: #fff7ed; border: 1px solid #fed7aa; color: #9a3412;
+            font-size: 12px; line-height: 1.5; display: none;
+        }
+        .server-hint.show { display: block; }
+        .server-hint code {
+            background: #ffedd5; padding: 1px 6px; border-radius: 4px; font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="shell">
+        <div class="hero">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-network-wired"></i></div>
+                <div>
+                    <h1>NET<span>RIX</span></h1>
+                    <p class="tag">Enterprise Network Planning</p>
+                </div>
+            </div>
+            <h2>Design, subnet &amp; configure enterprise networks in minutes.</h2>
+            <p class="desc">
+                Automated VLSM, IPv4 planning, VLAN allocation, Cisco IOS configs,
+                topology diagrams and exportable documentation — with role-based access.
+            </p>
+            <div class="feature"><i class="fas fa-sitemap"></i><div><strong>VLSM Engine</strong><br>Optimal subnet allocation for every department</div></div>
+            <div class="feature"><i class="fas fa-server"></i><div><strong>Cisco Configs</strong><br>Router &amp; switch configs for OSPF, EIGRP, RIP</div></div>
+            <div class="feature"><i class="fas fa-shield-alt"></i><div><strong>RBAC Security</strong><br>Admin, Engineer &amp; Viewer roles</div></div>
+            <div class="feature"><i class="fas fa-file-export"></i><div><strong>Export Ready</strong><br>PDF, Word, Excel, CSV downloads</div></div>
+        </div>
+
+        <div class="panel">
+            <h3>Welcome back</h3>
+            <p class="sub">Sign in to your NETRIX workspace</p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for cat, msg in messages %}
+                    <div class="alert alert-{{ cat }} py-2">{{ msg }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <div class="server-hint" id="serverHint">
+                <strong><i class="fas fa-exclamation-triangle me-1"></i> Server not detected</strong><br>
+                Do not open this file directly. Start the app first:<br>
+                <code>python run.py</code> then open <code>http://127.0.0.1:5000</code>
+            </div>
+
+            <form method="POST" action="/login" id="loginForm" autocomplete="on">
+                <div class="mb-3">
+                    <label class="form-label" for="email">Email or Username</label>
+                    <input type="text" name="email" id="email" class="form-control"
+                           placeholder="you@company.com" required autofocus
+                           value="{{ request.form.get('email', '') }}" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="password">Password</label>
+                    <input type="password" name="password" id="password" class="form-control"
+                           placeholder="••••••••" required />
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" name="remember" class="form-check-input" id="remember" value="1" />
+                    <label class="form-check-label" for="remember" style="font-size:13px;color:#64748b;">Remember me</label>
+                </div>
+                <button type="submit" class="btn btn-login" id="loginBtn">
+                    <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                </button>
+            </form>
+
+            <p class="footer-link">
+                No account? <a href="/register">Create one</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Detect file:// open (static) vs real server
+        if (location.protocol === 'file:') {
+            document.getElementById('serverHint').classList.add('show');
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('NETRIX must be started with the Flask server.\n\n1. Open a terminal in the netrix folder\n2. Run:  python run.py\n3. Open: http://127.0.0.1:5000');
+            });
+        }
+        document.getElementById('loginForm').addEventListener('submit', function() {
+            if (location.protocol === 'file:') return;
+            var btn = document.getElementById('loginBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing in...';
+        });
+    </script>
+</body>
+</html>

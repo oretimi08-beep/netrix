@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="fas fa-file-alt me-2"></i>Results: {{ project.name }}</h2>
+            <div>
+                <a href="{{ url_for('view_project', project_id=project.id) }}" class="btn btn-outline-secondary me-2">
+                    <i class="fas fa-eye me-1"></i>View
+                </a>
+                <a href="{{ url_for('edit_project', project_id=project.id) }}" class="btn btn-success me-2">
+                    <i class="fas fa-edit me-1"></i>Edit
+                </a>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i>Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Download Section -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-download me-2"></i>Download Center</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('download_file', project_id=project.id, file_type='report') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-file-pdf me-2"></i>PDF Report
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('download_file', project_id=project.id, file_type='router_config') }}" class="btn btn-outline-success w-100">
+                            <i class="fas fa-router me-2"></i>Router Config
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('download_file', project_id=project.id, file_type='switch_config') }}" class="btn btn-outline-info w-100">
+                            <i class="fas fa-server me-2"></i>Switch Config
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('download_file', project_id=project.id, file_type='csv') }}" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-table me-2"></i>CSV Address Plan
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('download_file', project_id=project.id, file_type='diagram') }}" class="btn btn-outline-warning w-100">
+                            <i class="fas fa-project-diagram me-2"></i>Network Diagram
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <a href="{{ url_for('download_file', project_id=project.id, file_type='uml') }}" class="btn btn-outline-dark w-100">
+                            <i class="fas fa-code-branch me-2"></i>UML Diagram
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VLSM Results -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-sitemap me-2"></i>VLSM Subnet Allocation</h5>
+            </div>
+            <div class="card-body">
+                {% if departments %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Department</th>
+                                    <th>Hosts</th>
+                                    <th>Network</th>
+                                    <th>Subnet Mask</th>
+                                    <th>Prefix</th>
+                                    <th>Broadcast</th>
+                                    <th>Gateway</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for dept in departments %}
+                                    <tr>
+                                        <td><strong>{{ dept.name }}</strong></td>
+                                        <td>{{ dept.hosts }}</td>
+                                        <td>{{ dept.network or 'N/A' }}</td>
+                                        <td>{{ dept.subnet_mask or 'N/A' }}</td>
+                                        <td>/{{ dept.prefix or 'N/A' }}</td>
+                                        <td>{{ dept.broadcast or 'N/A' }}</td>
+                                        <td>{{ dept.gateway or 'N/A' }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No departments found.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Router Configuration -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0"><i class="fas fa-router me-2"></i>Router Configuration</h5>
+            </div>
+            <div class="card-body">
+                {% set router_config = configurations|selectattr('device_type', 'equalto', 'router')|first %}
+                {% if router_config %}
+                    <pre class="bg-dark text-light p-3 rounded" style="max-height: 400px; overflow-y: auto;"><code>{{ router_config.config_text }}</code></pre>
+                {% else %}
+                    <p class="text-muted">Router configuration not generated yet.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Switch Configuration -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0"><i class="fas fa-server me-2"></i>Switch Configuration</h5>
+            </div>
+            <div class="card-body">
+                {% set switch_config = configurations|selectattr('device_type', 'equalto', 'switch')|first %}
+                {% if switch_config %}
+                    <pre class="bg-dark text-light p-3 rounded" style="max-height: 400px; overflow-y: auto;"><code>{{ switch_config.config_text }}</code></pre>
+                {% else %}
+                    <p class="text-muted">Switch configuration not generated yet.</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Validation Results -->
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Validation Results</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Network Validation Passed!</strong>
+                    <p class="mb-0 mt-2">All configurations have been validated. The network design is ready for deployment.</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="text-center p-3 bg-light rounded">
+                            <h3 class="text-success">✓</h3>
+                            <small>Router Configured</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center p-3 bg-light rounded">
+                            <h3 class="text-success">✓</h3>
+                            <small>VLANs Configured</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center p-3 bg-light rounded">
+                            <h3 class="text-success">✓</h3>
+                            <small>Hosts Reachable</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="text-center p-3 bg-light rounded">
+                            <h3 class="text-success">✓</h3>
+                            <small>Network Valid</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: netrix
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt -r requirements-prod.txt
+    startCommand: gunicorn run:app --bind 0.0.0.0:$PORT --workers 2 --threads 4 --timeout 120
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: netrix-db
+          property: connectionString
+      - key: BOOTSTRAP_ADMIN_EMAIL
+        sync: false
+      - key: BOOTSTRAP_ADMIN_PASSWORD
+        sync: false
+
+databases:
+  - name: netrix-db
+    plan: free

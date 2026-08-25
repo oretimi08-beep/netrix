@@ -1,0 +1,17 @@
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+Flask-Login==0.6.3
+Flask-WTF==1.2.1
+Flask-CORS==4.0.1
+Werkzeug==3.0.3
+SQLAlchemy==2.0.31
+python-dotenv==1.0.1
+reportlab==4.2.0
+openpyxl==3.1.5
+python-docx==1.1.2
+email-validator==2.2.0
+gunicorn==22.0.0
+PyJWT==2.8.0
+cryptography==42.0.8
+paramiko==3.4.0
+psycopg2-binary==2.9.9

@@ -1,0 +1,20 @@
+EnterpriseNetworkFramework/
+├── app.py                 # Main application
+├── config.py              # Configuration settings
+├── requirements.txt       # Python dependencies
+├── database.db           # SQLite database
+├── modules/              # Core modules
+│   ├── validation.py     # Input validation
+│   ├── vlsm.py          # VLSM calculation
+│   ├── ipv4.py          # IPv4 planning
+│   ├── vlan.py          # VLAN allocation
+│   ├── router.py        # Router configuration
+│   ├── switch.py        # Switch configuration
+│   ├── diagrams.py      # Diagram generation
+│   ├── reports.py       # Documentation generation
+│   └── packettracer.py  # Packet Tracer validation
+├── templates/            # HTML templates
+├── static/              # Static assets
+│   ├── css/            # Stylesheets
+│   └── js/             # JavaScript files
+└── exports/             # Generated exports
