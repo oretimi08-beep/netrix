@@ -29,7 +29,7 @@ except Exception:  # noqa: BLE001 — surface startup errors in the browser
 
     @app.route('/', defaults={'path': ''})
     @app.route('/<path:path>')
-       def startup_error(path: str = ''):
+    def startup_error(path: str = ''):
         tb = _STARTUP_TRACEBACK
         html = f"""<!doctype html>
 <html><head><meta charset="utf-8"><title>NETRIX startup error</title>
