@@ -1,6 +1,7 @@
 {
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/api/debug", "destination": "/api/debug" },
+    { "source": "/((?!api/debug).*)", "destination": "/api/index" }
   ],
   "functions": {
     "api/index.py": {
