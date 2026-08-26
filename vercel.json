@@ -1,11 +1,1 @@
-{
-  "rewrites": [
-    { "source": "/api/debug", "destination": "/api/debug" },
-    { "source": "/((?!api/debug).*)", "destination": "/api/index" }
-  ],
-  "functions": {
-    "api/index.py": {
-      "includeFiles": "{app/**,config.py}"
-    }
-  }
-}
+{"builds": [{ "src": "api/index.py", "use": "@vercel/python", "config": { "includeFiles": ["app/**", "config.py"] } }], "routes": [{ "src": "/(.*)", "dest": "/api/index.py" }]}
